@@ -20,6 +20,13 @@ const schemaPostUsuarios = yup.object({
             .min(6, "Mínimo de 6 caracteres")
             .max(12, "Máximo de 12 caracteres")
             .required("Senha é obrigatório"),
+        permissao: yup
+            .string()
+            .oneOf(
+                ["criador", "usuario"],
+                "Essa permissão não existe no banco de dados"
+            )
+            .required("Defina a permissão desse usuário!"),
     }),
 });
 
