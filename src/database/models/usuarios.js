@@ -24,6 +24,9 @@ const Usuario = database.define("usuarios", {
         type: Sequelize.STRING,
         allowNull: false,
     },
+    permissao: {
+        type: Sequelize.ENUM(["criador", "usuario"]),
+    },
     createdAt: {
         type: Sequelize.DATE,
         defaultValue: Sequelize.NOW,
