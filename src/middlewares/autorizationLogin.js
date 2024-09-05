@@ -38,8 +38,11 @@ function autorizaLogin(request, response, next) {
 function garantirAutenticacaoRBAC(permissaoParametro) {
     return (request, response, next) => {
         const { authorization } = request.headers;
-
-        if (!authorization) throw new Error("JWT Token não encontrado");
+        if (!authorization) {
+            return response
+                .status(401)
+                .json({ error: "JWT Token não encontrado" });
+        }
 
         const [, token] = authorization.split(" ");
 
@@ -48,10 +51,13 @@ function garantirAutenticacaoRBAC(permissaoParametro) {
 
             const { sub, permissao } = decode;
 
-            if (permissao != permissaoParametro)
-                throw new Error(
-                    "Usuário não possui permissão para essa operação"
-                );
+            if (permissao !== permissaoParametro) {
+                return response
+                    .status(403)
+                    .json({
+                        error: "Usuário não possui permissão para essa operação",
+                    });
+            }
 
             request.usuario = {
                 id: sub,
@@ -60,7 +66,7 @@ function garantirAutenticacaoRBAC(permissaoParametro) {
 
             next();
         } catch (error) {
-            throw new Error("Token inválido");
+            return response.status(401).json({ error: "Token inválido" });
         }
     };
 }

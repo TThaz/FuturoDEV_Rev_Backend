@@ -7,6 +7,7 @@ const usuarioRouter = require("./dominios/usuarios");
 const questionarioRouter = require("./dominios/questionarios");
 const sessionsRouter = require("./dominios/sessions");
 const respostasRouter = require("./dominios/respostas");
+const { garantirAutenticacaoRBAC } = require("./middlewares/autorizationLogin");
 
 const app = express();
 
@@ -16,12 +17,17 @@ app.use(express.json());
 app.use("/usuarios", usuarioRouter);
 
 //Rotas questionário
-app.use("/questionarios", questionarioRouter);
+app.use(
+    "/questionarios",
+    garantirAutenticacaoRBAC("criador"),
+    questionarioRouter
+);
 
 //Rota login
 app.use("/sessions", sessionsRouter);
 
-app.use("/respostas", respostasRouter);
+//Rota respostas
+app.use("/respostas", garantirAutenticacaoRBAC("usuario"), respostasRouter);
 
 async function iniciarServidor() {
     await database.authenticate();
