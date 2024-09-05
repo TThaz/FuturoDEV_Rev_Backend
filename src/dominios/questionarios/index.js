@@ -4,7 +4,6 @@ const yup = require("yup");
 const QuestionariosControllers = require("./questionarios.controllers");
 const { validarSchema } = require("../../middlewares/validaRotas");
 const {
-    autorizaLogin,
     garantirAutenticacaoRBAC,
 } = require("../../middlewares/autorizationLogin");
 
@@ -33,8 +32,6 @@ const schemaDeleteQuestionario = yup.object({
 });
 
 //ROTAS
-questionarioRouter.use(garantirAutenticacaoRBAC("criador")); // Middleware de autorização para login
-
 questionarioRouter.get("/", questionariosControllers.index);
 
 questionarioRouter.post(
