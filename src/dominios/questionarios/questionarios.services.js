@@ -36,16 +36,6 @@ class QuestionarioServices {
                 descricao,
             });
         }
-        // const questionario = await questionariosModel.create(
-        //     {
-        //         titulo,
-        //         descricao,
-        //         perguntas,
-        //     },
-        //     {
-        //         include: ["perguntas"],
-        //     }
-        // );
 
         return questionario;
     }

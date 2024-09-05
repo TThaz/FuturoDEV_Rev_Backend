@@ -3,15 +3,21 @@ require("dotenv").config();
 const database = require("./database/config");
 const express = require("express");
 
+const swaggerUi = require("swagger-ui-express");
+const swaggerDocument = require("./dominios/doc.swagger.json");
+
 const usuarioRouter = require("./dominios/usuarios");
 const questionarioRouter = require("./dominios/questionarios");
 const sessionsRouter = require("./dominios/sessions");
 const respostasRouter = require("./dominios/respostas");
+
 const { garantirAutenticacaoRBAC } = require("./middlewares/autorizationLogin");
 
 const app = express();
-
 app.use(express.json());
+
+//Rota do Swagger
+app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 //Rotas de pergunta
 app.use("/usuarios", usuarioRouter);
