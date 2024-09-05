@@ -21,6 +21,19 @@ sessionsRouter.post(
     "/",
     validarSchema(schemaPostSessions),
     sessionsControllers.create
+
+    /*
+        #swagger.tags = ['Login']
+        #swagger.parameters['novoLogin'] = {
+            in: 'body',
+            description: 'Informações do usuário Cadastrado',
+            required: true,
+            schema: {
+                $email: "userteste@email.com",
+                $senha: "12345678"
+            },
+        }
+    */
 );
 
 module.exports = sessionsRouter;

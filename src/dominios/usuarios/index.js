@@ -30,12 +30,48 @@ const schemaPostUsuarios = yup.object({
     }),
 });
 
-usuarioRouter.get("/", usuariosControllers.index);
+usuarioRouter.get(
+    "/",
+    usuariosControllers.index
+    /*
+        #swagger.tags = ['Usuários']
+        #swagger.description = 'Endpoint para listar os usuários'
+    */
+);
+
 usuarioRouter.post(
     "/",
     validarSchema(schemaPostUsuarios),
     usuariosControllers.create
+    /*
+        #swagger.tags = ['Usuários']
+        #swagger.parameters['novoUsuário'] = {
+            in: 'body',
+            description: 'Informações do Usuário',
+            required: true,
+            schema: {
+                $nome: "User",
+                $sobrenome: "Teste",
+                $email: "userteste@email.com",
+                $senha: "12345678",
+                $permissao: "usuario",
+            },
+        }
+    */
 );
-usuarioRouter.delete("/:id", usuariosControllers.delete);
+
+usuarioRouter.delete(
+    "/:id",
+    usuariosControllers.delete
+    /*
+        #swagger.tags = ['Usuários']
+        #swagger.parameters['id'] = {
+            in: 'path',
+            description: 'ID do Usuário',
+            required: true,
+            type:'string',
+        }
+    */
+);
 
 module.exports = usuarioRouter;

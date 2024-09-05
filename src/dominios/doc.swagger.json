@@ -1,0 +1,297 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Questionários API",
+    "description": "API para gerenciamento de questionários e respostas",
+    "version": "1.0.0"
+  },
+  "host": "localhost:3333",
+  "basePath": "/",
+  "schemes": [
+    "http"
+  ],
+  "securityDefinitions": {
+    "apiKeyAuth": {
+      "type": "apiKey",
+      "in": "header",
+      "name": "Authorization",
+      "description": "Bearer <token>"
+    }
+  },
+  "paths": {
+    "/usuarios/": {
+      "get": {
+        "tags": [
+          "Usuários"
+        ],
+        "description": "Endpoint para listar os usuários",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Usuários"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "novoUsuário",
+            "in": "body",
+            "description": "Informações do Usuário",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "nome": {
+                  "type": "string",
+                  "example": "User"
+                },
+                "sobrenome": {
+                  "type": "string",
+                  "example": "Teste"
+                },
+                "email": {
+                  "type": "string",
+                  "example": "userteste@email.com"
+                },
+                "senha": {
+                  "type": "string",
+                  "example": "12345678"
+                },
+                "permissao": {
+                  "type": "string",
+                  "example": "usuario"
+                }
+              },
+              "required": [
+                "nome",
+                "sobrenome",
+                "email",
+                "senha",
+                "permissao"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/usuarios/{id}": {
+      "delete": {
+        "tags": [
+          "Usuários"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "ID do Usuário"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/questionarios/": {
+      "get": {
+        "tags": [
+          "Questionário"
+        ],
+        "description": "Endpoint para listar os questionários",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Questionário"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "novoQuestionario",
+            "in": "body",
+            "description": "Informações do questionário",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "titulo": {
+                  "type": "string",
+                  "example": "Questionário de exemplo"
+                },
+                "descricao": {
+                  "type": "string",
+                  "example": "Este é um questionário de teste"
+                }
+              },
+              "required": [
+                "titulo",
+                "descricao"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/questionarios/{id}": {
+      "delete": {
+        "tags": [
+          "Questionário"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "ID do questionário"
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/sessions/": {
+      "post": {
+        "tags": [
+          "Login"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "novoLogin",
+            "in": "body",
+            "description": "Informações do usuário Cadastrado",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "email": {
+                  "type": "string",
+                  "example": "userteste@email.com"
+                },
+                "senha": {
+                  "type": "string",
+                  "example": "12345678"
+                }
+              },
+              "required": [
+                "email",
+                "senha"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/respostas/": {
+      "get": {
+        "tags": [
+          "Respostas"
+        ],
+        "description": "Endpoint para listar as respostas",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/respostas/{perguntaId}": {
+      "post": {
+        "tags": [
+          "Respostas"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "perguntaId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "novaResposta",
+            "in": "body",
+            "description": "Informações da resposta",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "conteudo": {
+                  "type": "string",
+                  "example": "Respondendo questionário de teste"
+                }
+              },
+              "required": [
+                "conteudo"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/respostas/{id}": {
+      "delete": {
+        "tags": [
+          "Respostas"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "ID da resposta"
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    }
+  },
+  "security": [
+    {
+      "apiKeyAuth": []
+    }
+  ]
+}

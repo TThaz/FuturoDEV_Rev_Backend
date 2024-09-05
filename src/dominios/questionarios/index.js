@@ -3,9 +3,6 @@ const yup = require("yup");
 
 const QuestionariosControllers = require("./questionarios.controllers");
 const { validarSchema } = require("../../middlewares/validaRotas");
-const {
-    garantirAutenticacaoRBAC,
-} = require("../../middlewares/autorizationLogin");
 
 const questionarioRouter = new Router();
 const questionariosControllers = new QuestionariosControllers();
@@ -32,18 +29,49 @@ const schemaDeleteQuestionario = yup.object({
 });
 
 //ROTAS
-questionarioRouter.get("/", questionariosControllers.index);
+questionarioRouter.get(
+    "/",
+    questionariosControllers.index
+
+    /*
+    #swagger.tags = ['Questionário']
+    #swagger.description = 'Endpoint para listar os questionários'
+    */
+);
 
 questionarioRouter.post(
     "/",
     validarSchema(schemaPostQuestionario),
     questionariosControllers.create
+
+    /*
+    #swagger.tags = ['Questionário']
+    #swagger.parameters['novoQuestionario'] = {
+        in: 'body',
+        description: 'Informações do questionário',
+        required: true,
+        schema: {
+            $titulo: "Questionário de exemplo",
+            $descricao: "Este é um questionário de teste"
+        },
+    }
+    */
 );
 
 questionarioRouter.delete(
     "/:id",
     validarSchema(schemaDeleteQuestionario),
     questionariosControllers.delete
+
+    /*
+    #swagger.tags = ['Questionário']
+    #swagger.parameters['id'] = {
+        in: 'path',
+        description: 'ID do questionário',
+        required: true,
+        type:'string',
+    }
+    */
 );
 
 module.exports = questionarioRouter;

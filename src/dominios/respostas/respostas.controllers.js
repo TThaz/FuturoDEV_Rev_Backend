@@ -10,6 +10,18 @@ class RespostasController {
      * @returns
      */
 
+    async index(request, response) {
+        const listaRespostas = await respostaServices.list();
+        return response.json(listaRespostas);
+    }
+
+    /**
+     *
+     * @param {import('express').Request} request
+     * @param {import('express').Response} response
+     * @returns
+     */
+
     async create(request, response) {
         const { body } = request;
         const { perguntaId } = request.params;

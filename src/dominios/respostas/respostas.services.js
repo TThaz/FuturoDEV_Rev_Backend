@@ -3,16 +3,8 @@ const {
 } = require("../../database/models/respostas");
 
 class RespostasServices {
-    async list(carregarPerguntas = false) {
-        let listaRespostas;
-
-        if (carregarPerguntas) {
-            listaRespostas = respostasModel
-                .scope("carregarPerguntas")
-                .findAll();
-        } else {
-            listaRespostas = respostasModel.findAll();
-        }
+    async list() {
+        const listaRespostas = respostasModel.findAll();
 
         return listaRespostas;
     }
